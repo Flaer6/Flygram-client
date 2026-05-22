@@ -1,7 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
+import { Router } from './components/router/Router'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
-	<StrictMode>sadvd</StrictMode>,
+	<StrictMode>
+		<Router />
+	</StrictMode>,
 )

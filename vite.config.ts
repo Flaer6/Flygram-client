@@ -9,6 +9,7 @@ export default defineConfig({
 		react(),
 		tailwindcss(),
 		VitePWA({
+			includeAssets: ['**/*.png', '**/*.jpg'],
 			registerType: 'prompt',
 			injectRegister: false,
 
@@ -21,7 +22,35 @@ export default defineConfig({
 				name: 'FlyGram',
 				short_name: 'FlyGram',
 				description: 'Best Messanger',
-				theme_color: '#ffffff',
+				theme_color: '#1f1d2b',
+				background_color: '#1f1d2b',
+				display: 'standalone',
+				orientation: 'portrait',
+				icons: [
+					{
+						src: '/favicons/192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+					{
+						src: '/favicons/512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'any',
+					},
+					{
+						src: '/favicons/192x192.jpg',
+						sizes: '192x192',
+						type: 'image/jpg',
+						purpose: 'maskable',
+					},
+					{
+						src: '/favicons/512x512.jpg',
+						sizes: '512x512',
+						type: 'image/jpg',
+						purpose: 'maskable',
+					},
+				],
 			},
 
 			workbox: {
@@ -31,7 +60,7 @@ export default defineConfig({
 			},
 
 			devOptions: {
-				enabled: false,
+				enabled: true,
 				navigateFallback: 'index.html',
 				suppressWarnings: true,
 				type: 'module',
