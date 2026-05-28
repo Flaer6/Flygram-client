@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+@layer components {
+	.bg-card {
+		@apply rounded-xl border border-white/10 bg-white/3 backdrop-blur-3xl;
+	}
+}
+
 html {
 	@apply h-full;
 }
@@ -24,4 +30,8 @@ input:-webkit-autofill:active {
 	-webkit-text-fill-color: white !important;
 	transition: background-color 9999s ease-in-out 0s;
 	caret-color: white;
+}
+
+a {
+	cursor: pointer;
 }

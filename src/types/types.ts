@@ -12,3 +12,12 @@ export interface IErrorResponse {
 export interface IAuthResponse {
 	accessToken: string
 }
+
+export interface IUser {
+	ID: number
+	Username: string
+	Email: string
+	Avatar: string
+	FirstName: string
+	LastName: string
+}

@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { useAuthStore } from '../store/auth.store'
 
 export const api = axios.create({
@@ -20,9 +21,15 @@ api.interceptors.response.use(
 	response => response,
 
 	async error => {
-		const originalRequest = error.config
+		const originalRequest = error.config as typeof error.config & {
+			_retry?: boolean
+		}
 
-		if (error.response?.status === 401 && !originalRequest._retry) {
+		if (
+			error.response?.status === 401 &&
+			!originalRequest._retry &&
+			originalRequest.url !== '/auth/refresh'
+		) {
 			originalRequest._retry = true
 
 			try {
@@ -42,6 +49,8 @@ api.interceptors.response.use(
 
 				return api(originalRequest)
 			} catch (refreshError) {
+				useAuthStore.getState().setAccessToken(null)
+
 				window.location.href = '/login'
 
 				return Promise.reject(refreshError)

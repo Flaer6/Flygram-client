@@ -9,7 +9,7 @@ import { FloatingInput } from './FloatingInput'
 
 export const Register = () => {
 	const { register, handleSubmit, watch } = useForm<IInputAuth>()
-	const { registerMutate } = useAuth()
+	const { registerMutate, isRegisterPending } = useAuth()
 
 	const onRegister = (data: IInputAuth) => registerMutate(data)
 
@@ -42,7 +42,9 @@ export const Register = () => {
 					type='password'
 				/>
 
-				<ButtonSubmit>Создать Аккаунт</ButtonSubmit>
+				<ButtonSubmit disabled={isRegisterPending}>
+					{isRegisterPending ? 'Loading...' : 'Создать Аккаунт'}
+				</ButtonSubmit>
 			</form>
 
 			<div className='mt-6 text-center text-sm text-white/40'>

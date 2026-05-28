@@ -3,26 +3,26 @@ import axios from 'axios'
 import { useAuthStore } from '../store/auth.store'
 
 export const useCheckAuth = () => {
-	const { setAccessToken } = useAuthStore()
+	const setAccessToken = useAuthStore(state => state.setAccessToken)
 
 	return useQuery({
 		queryKey: ['checkAuth'],
 
 		queryFn: async () => {
-			const res = await axios.post(
+			const res = await axios.get(
 				`${import.meta.env.VITE_API_URL}/auth/refresh`,
-				null,
 				{
 					withCredentials: true,
 				},
 			)
 
-			setAccessToken(res.data.accessToken)
+			setAccessToken(res.data.access_token)
 
 			return res.data
 		},
 
 		retry: false,
 		refetchOnWindowFocus: false,
+		staleTime: Infinity,
 	})
 }

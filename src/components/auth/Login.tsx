@@ -9,16 +9,16 @@ import { FloatingInput } from './FloatingInput'
 
 export const Login = () => {
 	const { register, handleSubmit, watch } = useForm<IInputAuth>()
-	const { loginMutate } = useAuth()
+	const { loginMutate, isLoginPending } = useAuth()
 
-	const onRegister = (data: IInputAuth) => loginMutate(data)
+	const onLogin = (data: IInputAuth) => loginMutate(data)
 
 	return (
 		<AuthFormComponent
 			title='С возвращением'
 			desc='Войдите в свой аккаунт FlyGram'
 		>
-			<form className='space-y-2' onSubmit={handleSubmit(onRegister)}>
+			<form className='space-y-2' onSubmit={handleSubmit(onLogin)}>
 				<FloatingInput
 					icon={<Mail className='size-5' />}
 					label='Почта или имя пользователя'
@@ -44,7 +44,9 @@ export const Login = () => {
 					</button>
 				</div>
 
-				<ButtonSubmit>Войти</ButtonSubmit>
+				<ButtonSubmit disabled={isLoginPending}>
+					{isLoginPending ? 'Loading...' : 'Войти'}
+				</ButtonSubmit>
 			</form>
 
 			<div className='mt-7 text-center text-sm text-white/40'>
